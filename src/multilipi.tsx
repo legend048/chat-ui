@@ -9,7 +9,7 @@ const AddScriptToHead = () => {
     script.setAttribute('data-pos-y', "50");
     script.setAttribute('key', "b7ef1046-dae8-4a0b-962b-295137c9613b");
     script.crossOrigin = "anonymous";
-    script.async = true;
+    // script.async = true;
 
     // Append script to the <head> tag
     document.head.appendChild(script);
