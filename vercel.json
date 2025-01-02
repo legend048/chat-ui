@@ -5,7 +5,7 @@
             "headers": [
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "http://127.0.0.1:8000, https://dashboard.multilipi.com"
+                    "value": "*"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",
