@@ -4,7 +4,7 @@ const AddScriptToHead = () => {
   useEffect(() => {
     // Create the script element
     const script = document.createElement('script');
-    script.src = "https://scripttranslate.blob.core.windows.net/test/live.js";
+    script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
     script.setAttribute('key', "b7ef1046-dae8-4a0b-962b-295137c9613b");
