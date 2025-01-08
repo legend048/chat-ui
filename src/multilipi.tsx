@@ -33,7 +33,7 @@ const AddScriptToHead = () => {
     script.src = "https://bhashinistorage.blob.core.windows.net/static/js/script.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
-    script.setAttribute('key', "3cc60918-01c9-481e-8a6e-249c9622c6d5");
+    script.setAttribute('key', "cc361c45-7eff-47f3-8eed-6ad8502765df");
     script.crossOrigin = "anonymous";
     // script.async = true;
 
