@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const AddScriptToHead = () => {           
 
   useEffect(() => {
-    const languages = ['gu', 'hi']; // Move array inside useEffect
+    const languages = ['tr', 'hi']; // Move array inside useEffect
     const links: HTMLLinkElement[] = [];
   
     // Add a link tag for each language
@@ -33,7 +33,7 @@ const AddScriptToHead = () => {
     // script.src = "https://bhashinistorage.blob.core.windows.net/static/js/script.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
-    script.setAttribute('key', "c4f7c3ac-84ac-4d56-b402-d4bdfd1b9257");
+    script.setAttribute('key', "a3e8a496-b1cb-4d33-9499-a01c96fcff16");
     script.crossOrigin = "anonymous";
     // script.async = true;
 
