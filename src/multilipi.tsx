@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const AddScriptToHead = () => {           
 
   useEffect(() => {
-    const languages = ['tr', 'hi']; // Move array inside useEffect
+    const languages = ['fj', 'gl', 'hi']; // Move array inside useEffect
     const links: HTMLLinkElement[] = [];
   
     // Add a link tag for each language
@@ -25,15 +25,15 @@ const AddScriptToHead = () => {
   }, []);
 
   useEffect(() => {
-    // Create the script element
+    // Create the script elemente1f67d8b-070f-4442-887d-d9e8eec41e6a
     const script = document.createElement('script');
-    script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
+    // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/live.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/sub_domain_live.js";
+    script.src = "https://multilipistorage.blob.core.windows.net/static/JS/sub_domain_live.js";
     // script.src = "https://bhashinistorage.blob.core.windows.net/static/js/script.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
-    script.setAttribute('key', "66239f12-8d5c-4083-9c7d-ff45d44a746a");
+    script.setAttribute('key', "e1f67d8b-070f-4442-887d-d9e8eec41e6a");
     script.crossOrigin = "anonymous";
     // script.async = true;
 
