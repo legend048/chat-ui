@@ -28,7 +28,7 @@ function App() {
         <main className="container mx-auto px-6 pt-20 pb-32">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-            Starten Sie Ihr nächstes Projekt in Sekundenschnelle
+            Start uw volgende project binnen enkele seconden
             </h1>
             <p className="text-xl text-gray-400 mb-12">
               Launch a new development environment instantly with your favorite framework.
