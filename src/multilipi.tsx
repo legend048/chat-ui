@@ -33,7 +33,7 @@ const AddScriptToHead = () => {
     script.src = "https://multilipistorage.blob.core.windows.net/static/JS/page_translations.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
-    script.setAttribute('key', "f9e10008-92b6-44a4-a8ec-7999ca640afc");
+    script.setAttribute('key', "f2f265ca-87a6-46bc-83ac-27888acbee58");
     script.setAttribute('mode', "auto");
     script.crossOrigin = "anonymous";
     // script.async = true;
