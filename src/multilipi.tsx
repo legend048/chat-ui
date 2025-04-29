@@ -24,19 +24,17 @@ const AddScriptToHead = () => {
     };
   }, []);
 
-
-
   useEffect(() => {
     const script = document.createElement('script');
     // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/live.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/page_translations.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/page_translations.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/seo-scripts/page_translation testing.js";
-    script.src = "https://multilipistorage.blob.core.windows.net/static/dist/seo-scripts/page_translation.js";
+    script.src = "https://multilipistorage.blob.core.windows.net/static/seo-scripts/page_translation testing.js";
+    // script.src = "https://multilipistorage.blob.core.windows.net/static/dist/seo-scripts/page_translation.js";
     script.setAttribute('data-pos-x', "50");
     script.setAttribute('data-pos-y', "50");
-    script.setAttribute('multilipi-key', "512096c6-428a-43fd-a09e-9d01427292c1");
+    script.setAttribute('multilipi-key', "5488f5ff-0068-4683-934b-fd67dee6c0ee");
     script.setAttribute('mode', "auto");
     script.crossOrigin = "anonymous";
     // script.async = true;
