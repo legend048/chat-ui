@@ -140,129 +140,199 @@ export function EdgeCaseForm() {
   };
 
   return (
+    <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
+  <h2 class="text-xl font-semibold mb-4 text-gray-800">Edge Case Form</h2>
+  <form onSubmit={handleSubmit} class="space-y-4">
+    {/* Name Input */}
     <div>
-      <h2>Edge Case Form</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Name Input */}
-        <label htmlFor="name">Name (Special Characters, Empty, Long Input)</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          required
-        />
-        <span className="error">{errors.name}</span>
-
-        {/* Email Input */}
-        <label htmlFor="email">Email (Invalid Email)</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <span className="error">{errors.email}</span>
-
-        {/* Phone Input */}
-        <label htmlFor="phone">Phone Number (Invalid Format)</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleInputChange}
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-        />
-        <span className="error">{errors.phone}</span>
-
-        {/* Message Input */}
-        <label htmlFor="message">Message (Large Input)</label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleInputChange}
-          rows="4"
-        ></textarea>
-        <span className="error">{errors.message}</span>
-
-        {/* Gender Input */}
-        <label>Gender (Unchecked Selection)</label>
-        <input
-          type="radio"
-          id="male"
-          name="gender"
-          value="male"
-          onChange={handleInputChange}
-        /> Male
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          value="female"
-          onChange={handleInputChange}
-        /> Female
-        <input
-          type="radio"
-          id="other"
-          name="gender"
-          value="other"
-          onChange={handleInputChange}
-        /> Other
-        <span className="error">{errors.gender}</span>
-
-        {/* Hobbies Input */}
-        <label>Hobbies (Multiple Selections)</label>
-        <input
-          type="checkbox"
-          name="hobbies"
-          value="reading"
-          onChange={handleInputChange}
-        /> Reading
-        <input
-          type="checkbox"
-          name="hobbies"
-          value="travelling"
-          onChange={handleInputChange}
-        /> Travelling
-        <input
-          type="checkbox"
-          name="hobbies"
-          value="sports"
-          onChange={handleInputChange}
-        /> Sports
-        <span className="error">{errors.hobbies}</span>
-
-        {/* File Upload Input */}
-        <label htmlFor="file">Upload File (File Type and Size)</label>
-        <input
-          type="file"
-          id="file"
-          name="file"
-          accept=".jpg, .png, .pdf"
-          onChange={handleInputChange}
-        />
-        <span className="error">{errors.file}</span>
-
-        {/* Birthdate Input */}
-        <label htmlFor="birthdate">Date of Birth (Invalid Date)</label>
-        <input
-          type="date"
-          id="birthdate"
-          name="birthdate"
-          value={formData.birthdate}
-          onChange={handleInputChange}
-        />
-        <span className="error">{errors.birthdate}</span>
-
-        {/* Submit Button */}
-        <button type="submit">Submit</button>
-        <span className="success">{formSuccess}</span>
-      </form>
+      <label htmlFor="name" class="block text-gray-700 text-sm font-bold mb-2">
+        Name (Special Characters, Empty, Long Input)
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value={formData.name}
+        onChange={handleInputChange}
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <span className="text-red-500 text-xs italic">{errors.name}</span>
     </div>
-  );
+
+    {/* Email Input */}
+    <div>
+      <label htmlFor="email" class="block text-gray-700 text-sm font-bold mb-2">
+        Email (Invalid Email)
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
+        required
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <span className="text-red-500 text-xs italic">{errors.email}</span>
+    </div>
+
+    {/* Phone Input */}
+    <div>
+      <label htmlFor="phone" class="block text-gray-700 text-sm font-bold mb-2">
+        Phone Number (Invalid Format)
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        value={formData.phone}
+        onChange={handleInputChange}
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <span className="text-red-500 text-xs italic">{errors.phone}</span>
+    </div>
+
+    {/* Message Input */}
+    <div>
+      <label htmlFor="message" class="block text-gray-700 text-sm font-bold mb-2">
+        Message (Large Input)
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        value={formData.message}
+        onChange={handleInputChange}
+        rows="4"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      ></textarea>
+      <span className="text-red-500 text-xs italic">{errors.message}</span>
+    </div>
+
+    {/* Gender Input */}
+    <div>
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        Gender (Unchecked Selection)
+      </label>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="male"
+            name="gender"
+            value="male"
+            onChange={handleInputChange}
+            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+          />
+          <label htmlFor="male" class="ml-2 text-gray-700 text-sm">Male</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            value="female"
+            onChange={handleInputChange}
+            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+          />
+          <label htmlFor="female" class="ml-2 text-gray-700 text-sm">Female</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="other"
+            name="gender"
+            value="other"
+            onChange={handleInputChange}
+            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+          />
+          <label htmlFor="other" class="ml-2 text-gray-700 text-sm">Other</label>
+        </div>
+      </div>
+      <span className="text-red-500 text-xs italic">{errors.gender}</span>
+    </div>
+
+    {/* Hobbies Input */}
+    <div>
+      <label class="block text-gray-700 text-sm font-bold mb-2">
+        Hobbies (Multiple Selections)
+      </label>
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            name="hobbies"
+            value="reading"
+            onChange={handleInputChange}
+            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          />
+          <label class="ml-2 text-gray-700 text-sm">Reading</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            name="hobbies"
+            value="travelling"
+            onChange={handleInputChange}
+            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          />
+          <label class="ml-2 text-gray-700 text-sm">Travelling</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="checkbox"
+            name="hobbies"
+            value="sports"
+            onChange={handleInputChange}
+            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+          />
+          <label class="ml-2 text-gray-700 text-sm">Sports</label>
+        </div>
+      </div>
+      <span className="text-red-500 text-xs italic">{errors.hobbies}</span>
+    </div>
+
+    {/* File Upload Input */}
+    <div>
+      <label htmlFor="file" class="block text-gray-700 text-sm font-bold mb-2">
+        Upload File (File Type and Size)
+      </label>
+      <input
+        type="file"
+        id="file"
+        name="file"
+        accept=".jpg, .png, .pdf"
+        onChange={handleInputChange}
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <span className="text-red-500 text-xs italic">{errors.file}</span>
+    </div>
+
+    {/* Birthdate Input */}
+    <div>
+      <label htmlFor="birthdate" class="block text-gray-700 text-sm font-bold mb-2">
+        Date of Birth (Invalid Date)
+      </label>
+      <input
+        type="date"
+        id="birthdate"
+        name="birthdate"
+        value={formData.birthdate}
+        onChange={handleInputChange}
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <span className="text-red-500 text-xs italic">{errors.birthdate}</span>
+    </div>
+
+    {/* Submit Button */}
+    <button
+      type="submit"
+      class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    >
+      Submit
+    </button>
+    <span className="text-green-500 text-sm italic">{formSuccess}</span>
+  </form>
+</div>  );
 }
