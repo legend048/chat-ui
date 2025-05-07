@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Terminal, Code2, Sparkles, ExternalLink } from 'lucide-react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { EdgeCaseForm } from './components/form';
 import { FeatureCard } from './components/FeatureCard';
 import { PromptPage } from './pages/PromptPage';
 import AddScriptToHead from './multilipi';
@@ -84,6 +85,8 @@ function App() {
             </div>
           </div>
         </section>
+
+        <EdgeCaseForm />
 
         <Footer />
       </div>
