@@ -4,25 +4,29 @@ export function EdgeCaseForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',            // new
     phone: '',
     message: '',
     gender: '',
     hobbies: [],
     file: null,
     birthdate: '',
-    day:'',
+    favoriteColor: '#000000',
+    day: '',
   });
 
   const [errors, setErrors] = useState({
     name: '',
     email: '',
+    password: '',            // new
     phone: '',
     message: '',
     gender: '',
     hobbies: '',
     file: '',
     birthdate: '',
-    day:'',
+    favoriteColor: '',
+    day: '',
   });
 
   const [formSuccess, setFormSuccess] = useState('');
@@ -32,109 +36,101 @@ export function EdgeCaseForm() {
     const { name, value, type, checked, files } = e.target;
 
     if (type === 'checkbox') {
-      // Handle multiple checkbox values
-      setFormData((prevData) => {
-        const updatedHobbies = checked
-          ? [...prevData.hobbies, value]
-          : prevData.hobbies.filter((hobby) => hobby !== value);
-        return { ...prevData, hobbies: updatedHobbies };
+      setFormData((prev) => {
+        const updated = checked
+          ? [...prev.hobbies, value]
+          : prev.hobbies.filter((h) => h !== value);
+        return { ...prev, hobbies: updated };
       });
     } else if (type === 'file') {
-      // Handle file input
-      setFormData((prevData) => ({ ...prevData, file: files[0] }));
+      setFormData((prev) => ({ ...prev, file: files[0] }));
     } else {
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   // Validate form fields
   const validateForm = () => {
     let isValid = true;
-    let errorMessages = { ...errors };
+    const msgs = { ...errors };
 
-    // Name Validation
+    // Name
     if (!formData.name || formData.name.length > 100) {
-      errorMessages.name = 'Name is required and must be less than 100 characters.';
+      msgs.name = 'Name is required and must be less than 100 characters.';
       isValid = false;
-    } else {
-      errorMessages.name = '';
-    }
+    } else msgs.name = '';
 
-    // Email Validation
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(formData.email)) {
-      errorMessages.email = 'Please enter a valid email address.';
+    // Email
+    const emailPat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPat.test(formData.email)) {
+      msgs.email = 'Please enter a valid email address.';
       isValid = false;
-    } else {
-      errorMessages.email = '';
-    }
+    } else msgs.email = '';
 
-    // Phone Validation
-    const phonePattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
-    if (formData.phone && !phonePattern.test(formData.phone)) {
-      errorMessages.phone = 'Phone number must match the format 123-456-7890.';
+    // Password (new)
+    if (!formData.password || formData.password.length < 8) {
+      msgs.password = 'Password must be at least 8 characters.';
       isValid = false;
-    } else {
-      errorMessages.phone = '';
-    }
+    } else msgs.password = '';
 
-    // Message Validation
+    // Phone
+    const phonePat = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    if (formData.phone && !phonePat.test(formData.phone)) {
+      msgs.phone = 'Phone number must match the format 123-456-7890.';
+      isValid = false;
+    } else msgs.phone = '';
+
+    // Message
     if (formData.message.length > 1000) {
-      errorMessages.message = 'Message is too long. Maximum 1000 characters.';
+      msgs.message = 'Message is too long. Maximum 1000 characters.';
       isValid = false;
-    } else {
-      errorMessages.message = '';
-    }
+    } else msgs.message = '';
 
-    // Gender Validation
+    // Gender
     if (!formData.gender) {
-      errorMessages.gender = 'Please select a gender.';
+      msgs.gender = 'Please select a gender.';
       isValid = false;
-    } else {
-      errorMessages.gender = '';
-    }
+    } else msgs.gender = '';
 
-    // Hobbies Validation
+    // Hobbies
     if (formData.hobbies.length === 0) {
-      errorMessages.hobbies = 'Please select at least one hobby.';
+      msgs.hobbies = 'Please select at least one hobby.';
       isValid = false;
-    } else {
-      errorMessages.hobbies = '';
-    }
+    } else msgs.hobbies = '';
 
-    // File Validation
+    // File
     if (formData.file) {
       if (!formData.file.type.match('image.*') && !formData.file.type.match('pdf')) {
-        errorMessages.file = 'Please upload an image (JPG/PNG) or PDF file.';
+        msgs.file = 'Please upload an image (JPG/PNG) or PDF file.';
         isValid = false;
       }
-      if (formData.file.size > 5000000) { // 5MB file size limit
-        errorMessages.file = 'File size must be less than 5MB.';
+      if (formData.file.size > 5_000_000) {
+        msgs.file = 'File size must be less than 5MB.';
         isValid = false;
       }
-    } else {
-      errorMessages.file = '';
-    }
+    } else msgs.file = '';
 
-    // Birthdate Validation
+    // Birthdate
     if (formData.birthdate && new Date(formData.birthdate) > new Date()) {
-      errorMessages.birthdate = 'Date of birth cannot be in the future.';
+      msgs.birthdate = 'Date of birth cannot be in the future.';
       isValid = false;
-    } else {
-      errorMessages.birthdate = '';
-    }
+    } else msgs.birthdate = '';
 
-    setErrors(errorMessages);
+    // Favorite Color
+    if (!formData.favoriteColor) {
+      msgs.favoriteColor = 'Please select a color.';
+      isValid = false;
+    } else msgs.favoriteColor = '';
+
+    setErrors(msgs);
     return isValid;
   };
 
-  // Handle form submission
+  // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validateForm()) {
       setFormSuccess('Form submitted successfully!');
-      // You can perform the actual form submission here
       console.log('Form data:', formData);
     } else {
       setFormSuccess('');
@@ -143,199 +139,181 @@ export function EdgeCaseForm() {
 
   return (
     <div class="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
-  <h2 class="text-xl font-semibold mb-4 text-gray-800">Edge Case Form</h2>
-  <form onSubmit={handleSubmit} class="space-y-4">
-    {/* Name Input */}
-    <div>
-      <label htmlFor="name" class="block text-gray-700 text-sm font-bold mb-2">
-        Name (Special Characters, Empty, Long Input)
-      </label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        value={formData.name}
-        onChange={handleInputChange}
-        required
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <span className="text-red-500 text-xs italic">{errors.name}</span>
-    </div>
-
-    {/* Email Input */}
-    <div>
-      <label htmlFor="email" class="block text-gray-700 text-sm font-bold mb-2">
-        Email (Invalid Email)
-      </label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={formData.email}
-        onChange={handleInputChange}
-        required
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <span className="text-red-500 text-xs italic">{errors.email}</span>
-    </div>
-
-    {/* Phone Input */}
-    <div>
-      <label htmlFor="phone" class="block text-gray-700 text-sm font-bold mb-2">
-        Phone Number (Invalid Format)
-      </label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        value={formData.phone}
-        onChange={handleInputChange}
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <span className="text-red-500 text-xs italic">{errors.phone}</span>
-    </div>
-
-    {/* Message Input */}
-    <div>
-      <label htmlFor="message" class="block text-gray-700 text-sm font-bold mb-2">
-        Message (Large Input)
-      </label>
-      <textarea
-        id="message"
-        name="message"
-        value={formData.message}
-        onChange={handleInputChange}
-        rows="4"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      ></textarea>
-      <span className="text-red-500 text-xs italic">{errors.message}</span>
-    </div>
-
-    {/* Gender Input */}
-    <div>
-      <label class="block text-gray-700 text-sm font-bold mb-2">
-        Gender (Unchecked Selection)
-      </label>
-      <div class="flex items-center space-x-4">
-        <div class="flex items-center">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">Edge Case Form</h2>
+      <form onSubmit={handleSubmit} class="space-y-4">
+        {/* Name */}
+        <div>
+          <label htmlFor="name" class="block text-gray-700 text-sm font-bold mb-2">
+            Name (Required, max 100 chars)
+          </label>
           <input
-            type="radio"
-            id="male"
-            name="gender"
-            value="male"
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleInputChange}
-            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
           />
-          <label htmlFor="male" class="ml-2 text-gray-700 text-sm">Male</label>
+          <p className="text-red-500 text-xs italic">{errors.name}</p>
         </div>
-        <div class="flex items-center">
+
+        {/* Email */}
+        <div>
+          <label htmlFor="email" class="block text-gray-700 text-sm font-bold mb-2">
+            Email (Required)
+          </label>
           <input
-            type="radio"
-            id="female"
-            name="gender"
-            value="female"
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
-            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
           />
-          <label htmlFor="female" class="ml-2 text-gray-700 text-sm">Female</label>
+          <p className="text-red-500 text-xs italic">{errors.email}</p>
         </div>
-        <div class="flex items-center">
+
+        {/* Password (new) */}
+        <div>
+          <label htmlFor="password" class="block text-gray-700 text-sm font-bold mb-2">
+            Password (min 8 chars)
+          </label>
           <input
-            type="radio"
-            id="other"
-            name="gender"
-            value="other"
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
             onChange={handleInputChange}
-            class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
           />
-          <label htmlFor="other" class="ml-2 text-gray-700 text-sm">Other</label>
+          <p className="text-red-500 text-xs italic">{errors.password}</p>
         </div>
-      </div>
-      <span className="text-red-500 text-xs italic">{errors.gender}</span>
+
+        {/* Phone */}
+        <div>
+          <label htmlFor="phone" class="block text-gray-700 text-sm font-bold mb-2">
+            Phone (format 123-456-7890)
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
+          />
+          <p className="text-red-500 text-xs italic">{errors.phone}</p>
+        </div>
+
+        {/* Message */}
+        <div>
+          <label htmlFor="message" class="block text-gray-700 text-sm font-bold mb-2">
+            Message (max 1000 chars)
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            value={formData.message}
+            onChange={handleInputChange}
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
+          />
+          <p className="text-red-500 text-xs italic">{errors.message}</p>
+        </div>
+
+        {/* Gender */}
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2">Gender</label>
+          <div class="flex space-x-4">
+            {['male','female','other'].map((g) => (
+              <label key={g} class="flex items-center">
+                <input
+                  type="radio"
+                  name="gender"
+                  value={g}
+                  checked={formData.gender===g}
+                  onChange={handleInputChange}
+                  class="form-radio"
+                />
+                <span class="ml-2 capitalize">{g}</span>
+              </label>
+            ))}
+          </div>
+          <p className="text-red-500 text-xs italic">{errors.gender}</p>
+        </div>
+
+        {/* Hobbies */}
+        <div>
+          <label class="block text-gray-700 text-sm font-bold mb-2">Hobbies</label>
+          <div class="flex space-x-4">
+            {['reading','travelling','sports'].map((h) => (
+              <label key={h} class="flex items-center">
+                <input
+                  type="checkbox"
+                  name="hobbies"
+                  value={h}
+                  checked={formData.hobbies.includes(h)}
+                  onChange={handleInputChange}
+                  class="form-checkbox"
+                />
+                <span class="ml-2 capitalize">{h}</span>
+              </label>
+            ))}
+          </div>
+          <p className="text-red-500 text-xs italic">{errors.hobbies}</p>
+        </div>
+
+        {/* File */}
+        <div>
+          <label htmlFor="file" class="block text-gray-700 text-sm font-bold mb-2">Upload File</label>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            accept=".jpg,.png,.pdf"
+            onChange={handleInputChange}
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
+          />
+          <p className="text-red-500 text-xs italic">{errors.file}</p>
+        </div>
+
+        {/* Birthdate */}
+        <div>
+          <label htmlFor="birthdate" class="block text-gray-700 text-sm font-bold mb-2">Date of Birth</label>
+          <input
+            type="date"
+            id="birthdate"
+            name="birthdate"
+            value={formData.birthdate}
+            onChange={handleInputChange}
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
+          />
+          <p className="text-red-500 text-xs italic">{errors.birthdate}</p>
+        </div>
+
+        {/* Favorite Color */}
+        <div>
+          <label htmlFor="favoriteColor" class="block text-gray-700 text-sm font-bold mb-2">Favorite Color</label>
+          <input
+            type="color"
+            id="favoriteColor"
+            name="favoriteColor"
+            value={formData.favoriteColor}
+            onChange={handleInputChange}
+            class="w-full h-10 p-1 rounded border"
+          />
+          <p className="text-red-500 text-xs italic">{errors.favoriteColor}</p>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full"
+        >
+          Submit
+        </button>
+        {formSuccess && <p className="text-green-500 mt-2">{formSuccess}</p>}
+      </form>
     </div>
-
-    {/* Hobbies Input */}
-    <div>
-      <label class="block text-gray-700 text-sm font-bold mb-2">
-        Hobbies (Multiple Selections)
-      </label>
-      <div class="flex items-center space-x-4">
-        <div class="flex items-center">
-          <input
-            type="checkbox"
-            name="hobbies"
-            value="reading"
-            onChange={handleInputChange}
-            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-          />
-          <label class="ml-2 text-gray-700 text-sm">Reading</label>
-        </div>
-        <div class="flex items-center">
-          <input
-            type="checkbox"
-            name="hobbies"
-            value="travelling"
-            onChange={handleInputChange}
-            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-          />
-          <label class="ml-2 text-gray-700 text-sm">Travelling</label>
-        </div>
-        <div class="flex items-center">
-          <input
-            type="checkbox"
-            name="hobbies"
-            value="sports"
-            onChange={handleInputChange}
-            class="form-checkbox h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-          />
-          <label class="ml-2 text-gray-700 text-sm">Sports</label>
-        </div>
-      </div>
-      <span className="text-red-500 text-xs italic">{errors.hobbies}</span>
-    </div>
-
-    {/* File Upload Input */}
-    <div>
-      <label htmlFor="file" class="block text-gray-700 text-sm font-bold mb-2">
-        Upload File (File Type and Size)
-      </label>
-      <input
-        type="file"
-        id="file"
-        name="file"
-        accept=".jpg, .png, .pdf"
-        onChange={handleInputChange}
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <span className="text-red-500 text-xs italic">{errors.file}</span>
-    </div>
-
-    {/* Birthdate Input */}
-    <div>
-      <label htmlFor="birthdate" class="block text-gray-700 text-sm font-bold mb-2">
-        Date of Birth (Invalid Date)
-      </label>
-      <input
-        type="date"
-        id="birthdate"
-        name="birthdate"
-        value={formData.birthdate}
-        onChange={handleInputChange}
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <span className="text-red-500 text-xs italic">{errors.birthdate}</span>
-    </div>
-
-
-    {/* Submit Button */}
-    <button
-      type="submit"
-      class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-    >
-      Submit
-    </button>
-    <span className="text-green-500 text-sm italic">{formSuccess}</span>
-  </form>
-</div>  );
+  );
 }
