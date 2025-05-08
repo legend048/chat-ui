@@ -4,6 +4,7 @@ export function EdgeCaseForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',            // new
     phone: '',
     message: '',
     gender: '',
@@ -11,11 +12,13 @@ export function EdgeCaseForm() {
     file: null,
     birthdate: '',
     day:'',
+    favoriteColor: '#000000',
   });
 
   const [errors, setErrors] = useState({
     name: '',
     email: '',
+    password: '',            // new
     phone: '',
     message: '',
     gender: '',
@@ -23,6 +26,7 @@ export function EdgeCaseForm() {
     file: '',
     birthdate: '',
     day:'',
+    favoriteColor: '',
   });
 
   const [formSuccess, setFormSuccess] = useState('');
@@ -59,6 +63,12 @@ export function EdgeCaseForm() {
     } else {
       errorMessages.name = '';
     }
+
+       // Password (new)
+    if (!formData.password || formData.password.length < 8) {
+      msgs.password = 'Password must be at least 8 characters.';
+      isValid = false;
+    } else msgs.password = '';
 
     // Email Validation
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -124,6 +134,11 @@ export function EdgeCaseForm() {
       errorMessages.birthdate = '';
     }
 
+     if (!formData.favoriteColor) {
+      msgs.favoriteColor = 'Please select a color.';
+      isValid = false;
+    } else msgs.favoriteColor = '';
+
     setErrors(errorMessages);
     return isValid;
   };
@@ -161,6 +176,22 @@ export function EdgeCaseForm() {
       />
       <span className="text-red-500 text-xs italic">{errors.name}</span>
     </div>
+
+    {/* Password (new) */}
+        <div>
+          <label htmlFor="password" class="block text-gray-700 text-sm font-bold mb-2">
+            Password (min 8 chars)
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            class="shadow border rounded w-full py-2 px-3 leading-tight"
+          />
+          <p className="text-red-500 text-xs italic">{errors.password}</p>
+        </div>
 
     {/* Email Input */}
     <div>
@@ -326,7 +357,19 @@ export function EdgeCaseForm() {
       />
       <span className="text-red-500 text-xs italic">{errors.birthdate}</span>
     </div>
-
+    {/* Favorite Color */}
+        <div>
+          <label htmlFor="favoriteColor" class="block text-gray-700 text-sm font-bold mb-2">Favorite Color</label>
+          <input
+            type="color"
+            id="favoriteColor"
+            name="favoriteColor"
+            value={formData.favoriteColor}
+            onChange={handleInputChange}
+            class="w-full h-10 p-1 rounded border"
+          />
+          <p className="text-red-500 text-xs italic">{errors.favoriteColor}</p>
+        </div>
 
     {/* Submit Button */}
     <button
