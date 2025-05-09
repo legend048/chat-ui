@@ -15,6 +15,21 @@ const AddScriptToHead = () => {
         document.head.appendChild(link);
         links.push(link); // Keep track of the links for cleanup
     });
+
+    const dns = document.createElement('link');
+    dns.rel = 'dns-prefetch';
+    dns.href = '//multilipiseo.multilipi.com';
+    document.head.appendChild(dns);
+    links.push(dns);
+
+    // 3️⃣ Preconnect for multilipi SEO API (warms up TCP+TLS)
+    const preconnect = document.createElement('link');
+    preconnect.rel = 'preconnect';
+    preconnect.href = 'https://multilipiseo.multilipi.com';
+    preconnect.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnect);
+    links.push(preconnect);
+
   
     // Cleanup: Remove all added link tags on component unmount
     return () => {
