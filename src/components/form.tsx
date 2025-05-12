@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 export function EdgeCaseForm() {
   const [formData, setFormData] = useState({
     name: '',
-    emaill: '',
-    password: '',            // new
+    email: '',
+    password: '',
     phone: '',
     message: '',
     gender: '',
@@ -17,7 +17,7 @@ export function EdgeCaseForm() {
 
   const [errors, setErrors] = useState({
     name: '',
-    emaill: '',
+    email: '',
     password: '',            // new
     phone: '',
     message: '',
@@ -72,7 +72,7 @@ export function EdgeCaseForm() {
 
     // Email Validation
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(formData.emaill)) {
+    if (!emailPattern.test(formData.email)) {
       errorMessages.email = 'Please enter a valid email address.';
       isValid = false;
     } else {
@@ -200,9 +200,9 @@ export function EdgeCaseForm() {
       </label>
       <input
         type="email"
-        id="emaill"
+        id="email"
         name="email"
-        value={formData.emaill}
+        value={formData.email}
         onChange={handleInputChange}
         required
         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
