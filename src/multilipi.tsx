@@ -44,7 +44,8 @@ const AddScriptToHead = () => {
     // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/live.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/page_translations.js";
-    script.src = "https://multilipistorage.blob.core.windows.net/static/JS/page_translations.js";
+    // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/page_translations.js";
+    script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/page-trans-testing.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/seo-scripts/page_translation testing.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/js/test_page_translation.js";
     // script.src = "https://multilipistorage.blob.core.windows.net/static/dist/seo-scripts/page_translation.js";
