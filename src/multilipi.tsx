@@ -9,7 +9,7 @@ const AddScriptToHead = () => {
     // Add a link tag for each language
     languages.forEach((lang) => {
         const link = document.createElement('link');
-        link.href = `https://${lang}.multilipi.com/`;
+        link.href = `https://${lang}.testcre.audiobookconverter.com/`;
         link.hreflang = lang;
         link.rel = 'alternate';
         document.head.appendChild(link);
