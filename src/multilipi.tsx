@@ -1,71 +1,56 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-const AddScriptToHead = () => {           
+const LANGUAGES = ["hi", "ar"] as const;
+const DOMAIN = "www.audiobookconverter.com";
+// const MULTILIPI_KEY = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
+const MULTILIPI_KEY = "5a1d7c96-ed28-470c-bf02-ee04d371792c";
 
+export default function AddScriptToHead() {
   useEffect(() => {
-    const languages = ['hi']; // Move array inside useEffect
-    const links: HTMLLinkElement[] = [];
-  
-    // Add a link tag for each language
-    languages.forEach((lang) => {
-        const link = document.createElement('link');
-        link.href = `https://${lang}.testcre.audiobookconverter.com/`;
-        link.hreflang = lang;
-        link.rel = 'alternate';
-        document.head.appendChild(link);
-        links.push(link); // Keep track of the links for cleanup
+    const head = document.head;
+    const added: HTMLElement[] = [];
+
+    const add = <T extends HTMLElement>(el: T) => {
+      head.appendChild(el);
+      added.push(el);
+      return el;
+    };
+
+    // Alternate language URLs
+    LANGUAGES.forEach((lang) => {
+      const link = document.createElement("link");
+      link.rel = "alternate";
+      link.hreflang = lang;
+      link.href = `https://${lang}.${DOMAIN}/`;
+      add(link);
     });
 
-    const dns = document.createElement('link');
-    dns.rel = 'dns-prefetch';
-    dns.href = '//multilipiseo.multilipi.com';
-    document.head.appendChild(dns);
-    links.push(dns);
+    // DNS warm-up for Multilipi
+    const dns = document.createElement("link");
+    dns.rel = "dns-prefetch";
+    dns.href = "//multilipiseo.multilipi.com";
+    add(dns);
 
-    // 3️⃣ Preconnect for multilipi SEO API (warms up TCP+TLS)
-    const preconnect = document.createElement('link');
-    preconnect.rel = 'preconnect';
-    preconnect.href = 'https://multilipiseo.multilipi.com';
-    preconnect.crossOrigin = 'anonymous';
-    document.head.appendChild(preconnect);
-    links.push(preconnect);
+    const preconnect = document.createElement("link");
+    preconnect.rel = "preconnect";
+    preconnect.href = "https://multilipiseo.multilipi.com";
+    preconnect.crossOrigin = "anonymous";
+    add(preconnect);
 
-  
-    // Cleanup: Remove all added link tags on component unmount
+    // Multilipi script
+    const script = document.createElement("script");
+    script.src = "https://script-cdn.multilipi.com/static/JS/page_translations.js";
+    script.crossOrigin = "anonymous";
+    script.dataset.posX = "50";
+    script.dataset.posY = "50";
+    script.setAttribute("multilipi-key", MULTILIPI_KEY);
+    script.setAttribute("mode", "auto");
+    add(script);
+
     return () => {
-        links.forEach((link) => {
-            document.head.removeChild(link);
-        });
+      added.forEach((el) => el.parentNode?.removeChild(el));
     };
   }, []);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    const editor = document.createElement('script');
-    // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/live.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/live.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/page_translations.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/JS/page_translations.js";
-    script.src = "https://multilipistorage.blob.core.windows.net/media-seo/seo-scripts/page-trans-testing.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/seo-scripts/page_translation testing.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/js/test_page_translation.js";
-    // script.src = "https://multilipistorage.blob.core.windows.net/static/dist/seo-scripts/page_translation.js";
-    editor.src = "https://multilipistorage.blob.core.windows.net/static/js/editor.js";
-    script.setAttribute('data-pos-x', "50");
-    script.setAttribute('data-pos-y', "50");
-    script.setAttribute('multilipi-key', "512096c6-428a-43fd-a09e-9d01427292c1");
-    script.setAttribute('mode', "auto");
-    script.crossOrigin = "anonymous";
-    // script.async = true;
-
-    document.head.appendChild(script);
-    document.head.appendChild(editor);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []); 
   return null;
-};
-
-export default AddScriptToHead;
+}
